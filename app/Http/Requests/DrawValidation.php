@@ -29,7 +29,7 @@ class DrawValidation extends FormRequest
         return [
             'prizeType' => 'required|unique:members,prize_type',
             'generateRandomly' => 'required',
-            'winningNumber' => ($request->has('winningNumber') ? ['required', 'numeric', 'exists:winning_numbers,winning_number', new DrawValidationRule] : '')
+            'winningNumber' => ($request->has('winningNumber') ? ['required', 'numeric', 'exists:winning_numbers,winning_number', 'min:0', new DrawValidationRule] : '')
             // 'digits_between:4,4',
         ];
     }

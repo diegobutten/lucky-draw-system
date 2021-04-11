@@ -6,9 +6,24 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-
+        <link rel="icon" href="{{ asset('img/wheel-2121197.png') }}">
+        
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+
+        <style>
+            /*lucky draw input css*/
+                /* Chrome, Safari, Edge, Opera */
+                input.remove-arrow::-webkit-outer-spin-button,
+                input.remove-arrow::-webkit-inner-spin-button {
+                  -webkit-appearance: none;
+                  margin: 0;
+                }
+                /* Firefox */
+                input.remove-arrow[type=number] {
+                  -moz-appearance: textfield;
+                }
+        </style>
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">

@@ -46,7 +46,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="winningNumber">Winner Number</label>
-                                <input disabled type="text" class="form-control" id="winningNumber" name="winningNumber" autocomplete="off">
+                                <input disabled type="number" class="form-control remove-arrow" id="winningNumber" name="winningNumber" autocomplete="off">
                             </div>
                             <button type="submit" class="btn btn-primary">Draw</button>
                         </form>
@@ -86,9 +86,9 @@
         </div>
     </div>
 
-    {{-- <button class="btn btn-info" type="button" onclick="loadData()">Button</button> --}}
-
     <script>
+        // arrow function es6
+        // let c_prize_type = prize_type.replace(/\b\w/g, c => c.toUpperCase());
         window.onload = function(){
             $.ajaxSetup({
                 headers: {
@@ -108,14 +108,17 @@
                         let c_prize_type = prize_type.replace(/\b\w/g, function(c){
                             return c.toUpperCase();
                         });
-                        // arrow function es6
-                        // let c_prize_type = prize_type.replace(/\b\w/g, c => c.toUpperCase());
+                      
                         let trim_prize_type = prize_type.replace(/\s+/g, '').trim();
 
                         $('.'+trim_prize_type).html(
-                            `<h6 class="text-primary">
+                            `
+                            <div class="form-inline">
+                            <h6 class="text-primary">
                                 ${res[a].user} - won the ${c_prize_type}
-                            </h6>`
+                            </h6>
+                            </div>
+                            `
                         );
                     }
                 },
@@ -183,7 +186,6 @@
                     data: form,
                     dataType: 'json',
                     success:function(res){
-                        console.log(res);
                         Swal.fire('Congratulations!', `Winner number is '${res.winning_number}'`, 'success');
                         loadData(res);
                     },

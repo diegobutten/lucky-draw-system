@@ -14,4 +14,12 @@ class Member extends Model
     {
     	return $this->hasMany(WinningNumber::class);
     }
+
+    public function getUserAttribute($value){
+    	return ucfirst($value);
+    }
+
+    public function setUserAttribute($value){
+    	$this->attributes['user'] = strtolower($value);
+    }
 }

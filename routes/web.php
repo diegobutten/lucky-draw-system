@@ -32,5 +32,6 @@ Route::post('/loadData/{data}', [DrawController::class, 'loadData']);
 Route::post('/loadDataAdd/{data}', [DrawController::class, 'loadDataAdd']);
 
 Route::post('/addLuckyNumber', [DrawController::class, 'addLuckyNumber']);
+Route::post('/addNewUser', [DrawController::class, 'addNewUser']);
 
 require __DIR__.'/auth.php';

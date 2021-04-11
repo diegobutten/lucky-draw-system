@@ -15,7 +15,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Input Lucky Number:</label>
-                            <input type="text" name="winning_number" autocomplete="off" class="form-control input_wn{{ $member->id }}">
+                            <input type="number" name="winning_number" autocomplete="off" class="form-control input_wn{{ $member->id }} remove-arrow">
                         </div>
                         <input type="hidden" name="member_id" value="{{ $member->id }}">
                     </div>
@@ -56,13 +56,12 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Input User:</label>
-                            <input type="text" name="user" autocomplete="off" class="form-control input_wn">
+                            <input type="text" name="user" autocomplete="off" class="form-control input_user">
                         </div>
                         <div class="form-group">
                             <label>Input Lucky Number:</label>
-                            <input type="text" name="winning_number" autocomplete="off" class="form-control">
+                            <input type="number" name="winning_number" autocomplete="off" class="form-control input_wn remove-arrow">
                         </div>
-                        <input type="hidden" name="member_id" value="">
                     </div>
 
                     <!-- Modal footer -->
@@ -77,6 +76,11 @@
     </form>        
 
     <script>
-                
+        $("#myModal").on('shown.bs.modal',function() {
+            $(".input_user").focus();
+        });
+         $("#myModal").on('shown.bs.modal',function() {
+            $(".input_wn, .input_user").val('');
+        });    
     </script>
 @endif
