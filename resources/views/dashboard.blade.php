@@ -15,9 +15,14 @@
             </div>
         </div>
     </div> --}}
-
-    <div class="container py-12">
+    
+    <div class="container py-2">
         <div class="row">
+            <div class="col-md-12 py-2">
+                <button class="btn btn-danger float-right" type="button" id="resetAllWinners">
+                    Reset All Winners
+                </button>        
+            </div>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header lead">Lucky Draw</div>
@@ -169,6 +174,47 @@
         }
 
         $(function(){
+            $(document).on('click', '#resetAllWinners', function(e){
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'All winners will be reset.',
+                    text: 'Do you wish to proceed?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Reset',
+                    confirmButtonColor: '#d33',
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: '{!! url('/resetAllWinners') !!}',
+                            method: 'post',
+                            success: function(res){
+                                console.log(res);
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: res,
+                                    title: 'Success',
+                                    text: 'All winners have been reset.',
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                }).then((result) => {
+                                   if(result){
+                                        window.location.assign(`{!! ('/dashboard') !!}`);
+                                    } 
+                                });
+                            },
+                            error: function(res){
+                                console.log(res);
+                            }
+                        })                
+                    }
+                });
+            });
+
             $(document).on('submit', '#draw_form', function(e){
                 e.preventDefault();
                 const form = $(this).serialize();                 

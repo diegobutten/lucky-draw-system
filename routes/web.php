@@ -25,13 +25,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::post('/onLoad', [DrawController::class, 'onLoad']);
-
 Route::post('/draw', [DrawController::class, 'draw']);
-
 Route::post('/loadData/{data}', [DrawController::class, 'loadData']);
 Route::post('/loadDataAdd/{data}', [DrawController::class, 'loadDataAdd']);
-
 Route::post('/addLuckyNumber', [DrawController::class, 'addLuckyNumber']);
 Route::post('/addNewUser', [DrawController::class, 'addNewUser']);
+Route::post('/resetAllWinners', [DrawController::class, 'resetAllWinners']);
 
 require __DIR__.'/auth.php';

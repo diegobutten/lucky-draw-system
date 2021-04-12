@@ -24,7 +24,6 @@ class DrawController extends Controller
     public function draw(DrawValidation $request){
     	if($request->prizeType == 'first prize' && $request->generateRandomly == 'yes'){
     		$filterMembers = Member::where('won_prize', 0)->get();
-
     		$num = 0;
     		$holderWn = [];
     		$holderId = [];
@@ -41,9 +40,7 @@ class DrawController extends Controller
     				array_push($holderId, $member->id);
     			}
     		}
-
     		$winningNumber = WinningNumber::inRandomOrder()->whereIn('member_id', $holderId)->get()->first();
-
     	} else {
 	    	$winningNumberRandom = WinningNumber::inRandomOrder()->get();
 	    	$winningNumber = $winningNumberRandom->reject(function ($query){
@@ -52,14 +49,12 @@ class DrawController extends Controller
 	    		return $query;
 	    	})->first();
     	}
-
     	$winningNumber->member->update(
     		[
     			'prize_type' => $request->prizeType,
     			'won_prize' => true,
     		]
     	);
-    	// return response()->json($request->all());
     	return response()->json($winningNumber);
     }
 
@@ -80,9 +75,7 @@ class DrawController extends Controller
 
     		]
     	);
-
     	$data = WinningNumber::create($validated);
-
     	return response()->json($data);
     }
 
@@ -101,12 +94,25 @@ class DrawController extends Controller
     			'prize_type' => null,
     		]
     	);
-
     	$winning_number = new WinningNumber;
     	$winning_number->member_id = $member->id;
     	$winning_number->winning_number = $request->winning_number;
     	$winning_number->save();
-
     	return response()->json($member);
+    }
+
+    public function resetAllWinners(){
+    	$members = Member::all();
+
+    	foreach($members as $member){
+    		$member->update(
+    			[
+    				'prize_type' => null,
+    				'won_prize' => false
+    			]
+    		);
+    	}
+
+    	return response()->json('success');
     }
 }
